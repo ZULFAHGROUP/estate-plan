@@ -1,0 +1,107 @@
+export const customersColumns = [
+  { field: "titile", headerName: "Title", width: 70 },
+  {
+    field: "surname",
+    headerName: "Surname",
+    width: 230,
+  },
+  {
+    field: "othernames",
+    headerName: "Other Names",
+    width: 230,
+  },
+  {
+    field: "phone_number",
+    headerName: "Phone Number",
+    width: 230,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 100,
+  },
+];
+
+//temporary data
+export const customersRows = [
+  {
+    id: 1,
+    username: "Taiwo Olapade",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    status: "active",
+    email: "semiteprofessor@gmail.com",
+    age: 27,
+  },
+  {
+    id: 2,
+    username: "Abayomi Ajao",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "roshbon@gmail.com",
+    status: "passive",
+    age: 42,
+  },
+  {
+    id: 3,
+    username: "RAM",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "ram@gmail.com",
+    status: "pending",
+    age: 45,
+  },
+  {
+    id: 4,
+    username: "Mhiz B",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "mhis_b@gmail.com",
+    status: "active",
+    age: 16,
+  },
+  {
+    id: 5,
+    username: "Dee One",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "dee_one@gmail.com",
+    status: "passive",
+    age: 22,
+  },
+  {
+    id: 6,
+    username: "Wale Olupo",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "wale@gmail.com",
+    status: "active",
+    age: 15,
+  },
+  {
+    id: 7,
+    username: "Faruk",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "faruk@gmail.com",
+    status: "passive",
+    age: 44,
+  },
+  {
+    id: 8,
+    username: "Coker Adewale",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "coker@gmail.com",
+    status: "active",
+    age: 36,
+  },
+  {
+    id: 9,
+    username: "Amarachi",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "amarachi@gmail.com",
+    status: "pending",
+    age: 65,
+  },
+  {
+    id: 10,
+    username: "Olamilekan Adisa",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    email: "olamilekan@gmail.com",
+    status: "active",
+    age: 65,
+  },
+];
