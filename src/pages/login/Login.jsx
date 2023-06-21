@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../../contextAPI/AuthProvider";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { GLOBALS } from "../../global/Globals";
+import { GLOBALS } from "../../global/Get";
 import { useSelector, useDispatch } from "react-redux";
 
 import { signIn } from "../../redux/actions/customerActions";

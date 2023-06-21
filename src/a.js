@@ -15,7 +15,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { listCustomer } from "../../redux/actions/customerActions";
 import { axiosInstance } from "../../global/Get";
-import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -57,24 +56,26 @@ const Datatable = (props) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axiosInstance
-      .get("/api/v1/admin/customers")
-      .then((response) => {
-        setCustomers(response.data.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axiosInstance.get(`/api/v1/admin/customers`);
+        const data = await response.json();
+        setCustomers(data);
+        setLoading(false);
+      } catch (error) {
         setError(error);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
-  // console.log(customers);
-
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`/api/v1/admin/customers`);
-      setCustomers(customers.filter((item) => item._id !== id));
-    } catch (err) {}
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await axios.delete(`/api/v1/admin/customers`);
+  //     setCustomers(data.filter((item) => item._id !== id));
+  //   } catch (err) {}
+  // };
 
   const actionColumn = [
     {
@@ -87,32 +88,49 @@ const Datatable = (props) => {
             <Link to={`/customers/test`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div className="deleteButton" onClick={handleDelete}>
-              Delete
-            </div>
+            <div className="deleteButton">Delete</div>
           </div>
         );
       },
     },
   ];
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        {path}
-        <Link to={`/${path}/new`} className="link">
-          Add New
-        </Link>
-      </div>
-      <DataGrid
-        className="datagrid"
-        rows={customers}
-        columns={customersColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-        getRowId={(customers) => customers.user_id}
-      />
-    </div>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>SN</StyledTableCell>
+            <StyledTableCell align="right">Surname</StyledTableCell>
+            <StyledTableCell align="right">Other Names</StyledTableCell>
+            <StyledTableCell align="right">Phone No</StyledTableCell>
+            <StyledTableCell align="right">Email</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {loading ? (
+            <div>Loading... </div>
+          ) : error ? (
+            <div>error</div>
+          ) : (
+            customers.map((row) => (
+              <StyledTableRow key={row.user_id}>
+                <StyledTableCell component="th" scope="row">
+                  {row.sn}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.surname}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.othernames}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.phone_number}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.email}</StyledTableCell>
+              </StyledTableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

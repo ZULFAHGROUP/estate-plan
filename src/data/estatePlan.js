@@ -1,9 +1,8 @@
 export const estatePlanColumn = [
   { field: "id", headerName: "ID", width: 70 },
   { field: "estate_plan", headerName: "Estate Plan", width: 300 },
-  { field: "user_id", headerName: "Customer Name", width: 200 },
-  { field: "status", headerName: "Status", width: 800 },
-  { field: "details", headerName: "Details", width: 800 },
+  { field: "status", headerName: "Status", width: 300 },
+  { field: "details", headerName: "Details", width: 500 },
 ];
 
 export const estatePlanRow = [

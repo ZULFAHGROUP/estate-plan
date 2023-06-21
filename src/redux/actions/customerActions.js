@@ -2,13 +2,15 @@ import Axios from "axios";
 import axios from "axios";
 import Cookies from "js-cookie";
 import * as actionTypes from "../constants/customerConstants";
-import { GLOBALS } from "../../global/Globals";
+import { GLOBALS, axiosInstance } from "../../global/Get";
+import { Global } from "../../global/Post";
+
 
 export const listCustomer = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.CUSTOMER_LIST_REQUEST });
-    const { data } = await axios.get(
-      `${GLOBALS.BASE_URL}/api/v1/admin/customers`
+    const { data } = await axiosInstance.get(
+      `/api/v1/admin/customers`,
     );
     dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -19,8 +21,8 @@ export const listCustomer = () => async (dispatch) => {
 export const detailsCustomer = (id) => async (dispatch) => {
   dispatch({ type: actionTypes.CUSTOMER_DETAILS_REQUEST });
   try {
-    const { data } = await axios.post(
-      `${GLOBALS.BASE_URL}/api/v1/admin/customers/${id}`
+    const { data } = await axiosInstance.post(
+      `/api/v1/admin/customers/${id}`
     );
     dispatch({ type: actionTypes.CUSTOMER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -43,7 +45,7 @@ export const update =
     });
     try {
       const { data } = await Axios.put(
-        `${GLOBALS.BASE_URL}/api/v1/admin/customers/${customerId}`,
+        `$/api/v1/admin/customers/${customerId}`,
         { name, email, password },
         {
           headers: {
@@ -68,7 +70,7 @@ export const signIn = (email, password) => async (dispatch) => {
   });
   try {
     const { data } = await axios.post(
-      `${GLOBALS.BASE_URL}/api/v1/admin/login`,
+      `${Global.baseURL}/api/v1/admin/login`,
       {
         email,
         password,
@@ -91,7 +93,7 @@ export const register = (name, email, password) => async (dispatch) => {
   });
   try {
     const { data } = await axios.post(
-      `${GLOBALS.BASE_URL}/api/v1/admin/customers/register`,
+      `/api/v1/admin/customers/register`,
       {
         name,
         email,

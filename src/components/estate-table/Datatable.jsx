@@ -1,59 +1,79 @@
 import "./datatable.scss";
+import React, { useMemo } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation } from "react-router-dom";
-import { customersRows, estatePlanColumn } from "../../data/estatePlan";
+import { estatePlanRow, estatePlanColumn } from "../../data/estatePlan";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { listCustomer } from "../../redux/actions/customerActions";
+import { axiosInstance } from "../../global/Get";
+import axios from "axios";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 // Action
-import { listEstatePlan } from "../../redux/actions/estatePlanActions";
 
-const Datatable = ({ columns }) => {
-  const estatePlanList = useSelector((state) => state.estatePlanList);
-  const { estatePlans, loading, error } = estatePlanList;
+const Datatable = (props) => {
+  const customerList = useSelector((state) => state.customerList);
+  // const { customers, loading, error } = customerList;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(listEstatePlan());
-  }, []);
-
-  console.log(estatePlans);
+  // useEffect(() => {
+  //   dispatch(listCustomer());
+  // }, []);
 
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  // const [data, setData] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(false);
+  const [estatePlan, setEstatePlan] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await axios.get(
-  //         `${GLOBALS.BASE_URL}/api/v1/admin/estate-plan`,
-  //         {
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       const data = await response.json();
-  //       setData(data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setError(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    axiosInstance
+      .get("/api/v1/admin/estate-plans")
+      .then((response) => {
+        setEstatePlan(response.data.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
 
-  // console.log(data);
+  console.log(estatePlan);
 
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await axios.delete(`${GLOBALS.BASE_URL}/api/v1/admin/estate-plan`);
-  //     setData(data.filter((item) => item._id !== id));
-  //   } catch (err) {}
-  // };
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/v1/admin/customers`);
+      setEstatePlan(estatePlan.filter((item) => item._id !== id));
+    } catch (err) {}
+  };
 
   const actionColumn = [
     {
@@ -63,13 +83,10 @@ const Datatable = ({ columns }) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/estateplan/test" style={{ textDecoration: "none" }}>
+            <Link to={`/customers/test`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              // onClick={() => handleDelete(params.row._id)}
-            >
+            <div className="deleteButton" onClick={handleDelete}>
               Delete
             </div>
           </div>
@@ -87,12 +104,12 @@ const Datatable = ({ columns }) => {
       </div>
       <DataGrid
         className="datagrid"
-        rows={estatePlans}
+        rows={estatePlan}
         columns={estatePlanColumn.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
-        getRowId={(row) => row.id}
+        getRowId={(customers) => customers.user_id}
       />
     </div>
   );

@@ -1,13 +1,13 @@
 import * as actionTypes from "../constants/estatePlanConstant";
 import axios from "axios";
 import Axios from "axios";
-import { GLOBALS } from "../../global/Globals";
+import { GLOBALS } from "../../global/Get";
 
 export const listEstatePlan = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.ESTATEPLAN_LIST_REQUEST });
     const { data } = await axios.get(
-      `${GLOBALS.BASE_URL}/api/v1/admin/estate-plans`
+      `/api/v1/admin/estate-plans`
     );
     dispatch({ type: actionTypes.ESTATEPLAN_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -25,7 +25,7 @@ export const detailsEstatePlan = (estatePlanId) => async (dispatch) => {
       payload: estatePlanId,
     });
     const { data } = await axios.get(
-      `${GLOBALS.BASE_URL}/api/v1/admin/estate-plans/${estatePlanId}`
+      `/api/v1/admin/estate-plans/${estatePlanId}`
     );
     dispatch({ type: actionTypes.ESTATEPLAN_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -47,7 +47,7 @@ export const saveEstatePlan = (estateplan) => async (dispatch, getState) => {
     } = getState();
     if (!estateplan._id) {
       const { data } = await Axios.post(
-        `${GLOBALS.BASE_URL}/api/v1/admin/estate-plans/create`,
+        `/api/v1/admin/estate-plans/create`,
         estateplan,
         {
           headers: {
@@ -58,7 +58,7 @@ export const saveEstatePlan = (estateplan) => async (dispatch, getState) => {
       dispatch({ type: actionTypes.ESTATEPLAN_SAVE_SUCCESS, payload: data });
     } else {
       const { data } = await Axios.put(
-        `${GLOBALS.BASE_URL}/api/v1/admin/estate-plans/create` + estateplan._id,
+        `/api/v1/admin/estate-plans/create` + estateplan._id,
         estateplan,
         {
           headers: {
@@ -87,7 +87,7 @@ export const deleteEstatePlan =
         payload: estatePlanId,
       });
       const { data } = await axios.delete(
-        `${GLOBALS.BASE_URL}/api/v1/admin/estate-plans/save/${estatePlanId}`,
+        `/api/v1/admin/estate-plans/save/${estatePlanId}`,
         {
           headers: {
             Authorization: "Bearer " + customerInfo.token,

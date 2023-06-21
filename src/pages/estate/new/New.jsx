@@ -8,14 +8,14 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import { customersRows } from "../../../data/customers";
-import { GLOBALS } from "../../../global/Globals";
+import { GLOBALS } from "../../../global/Get";
 import axios from "axios";
 
 const postEstatePlan = async (image) => {
   const formData = new FormData();
 
   const result = await axios.post(
-    `${GLOBALS.BASE_URL}/api/v1/admin/estate-plan`,
+    `/api/v1/admin/estate-plan`,
     formData,
     {
       headers: {
