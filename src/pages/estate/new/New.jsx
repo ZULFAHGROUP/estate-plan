@@ -14,27 +14,23 @@ import axios from "axios";
 const postEstatePlan = async (image) => {
   const formData = new FormData();
 
-  const result = await axios.post(
-    `/api/v1/admin/estate-plan`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const result = await axios.post(`/api/v1/admin/estate-plan`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return result.data;
 };
 
 const NewPlan = ({ inputs, title }) => {
   const [estate_plan, setPlan] = useState("");
-  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
   const [details, setDetails] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await postEstatePlan({
       estate_plan,
-      name,
+      status,
       details,
     });
     return result;
@@ -66,17 +62,15 @@ const NewPlan = ({ inputs, title }) => {
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  name="status"
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {customersRows.map((customer) => (
-                    <MenuItem value={10} key={customer.id}>
-                      {customer.username}
-                    </MenuItem>
-                  ))}
+                  <MenuItem value="active">Active</MenuItem>
+                  <MenuItem value="inactive">InActive</MenuItem>
                 </Select>
               </FormControl>
 
