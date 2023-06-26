@@ -17,7 +17,6 @@ import { listCustomer } from "../../redux/actions/customerActions";
 import { Global } from "../../global/Global";
 import axios from "axios";
 
-
 // Action
 
 const Datatable = (props) => {
@@ -37,16 +36,29 @@ const Datatable = (props) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("/api/v1/admin/estate-plans")
-      .then((response) => {
+    const fetchEstatePlan = async () => {
+      try {
+        const response = await axios.get(
+          `${Global.baseURL}/api/v1/admin/estate-plans`,
+          {
+            headers: {
+              Authorization:
+                "Bearer " +
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyLWFkbWluQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsIl9pZCI6ImUzMzRiOWRmLWQ0NmItNGIxNy1hZGU0LTQzMzU0MmJlOTI1MSIsImlhdCI6MTY4Nzc3MzEyMCwiZXhwIjoxNjg3Nzc2NzIwfQ.VKvrSEglaW_Ms7FbBaE8KCzLOU3dwv9CD-XNZQD9S44",
+              withCredentials: true,
+            },
+          }
+        );
+        if (response.status === 200) {
+          localStorage.setItem("token", JSON.stringify(response.data.data));
+        }
         setEstatePlan(response.data.data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+      } catch (error) {
+        console.error("Error fetching estate plan:", error);
+      }
+    };
+    fetchEstatePlan();
   }, []);
-
   console.log(estatePlan);
 
   const handleDelete = async (id) => {

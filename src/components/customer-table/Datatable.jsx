@@ -20,17 +20,45 @@ import axios from "axios";
 import { listCustomer } from "../../redux/actions/customerActions";
 
 const Datatable = (props) => {
-  const customerList = useSelector((state) => state.customerList);
-  const { customers, loading, error } = customerList;
+  // const customerList = useSelector((state) => state.customerList);
+  // const { customers, loading, error } = customerList;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(listCustomer());
+  // }, []);
+
+  // console.log(customers);
+
+  const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    dispatch(listCustomer());
+    const fetchCustomers = async () => {
+      try {
+        const response = await axios.get(
+          `${Global.baseURL}/api/v1/admin/customers`,
+          {
+            headers: {
+              Authorization:
+                "Bearer " +
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyLWFkbWluQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsIl9pZCI6ImUzMzRiOWRmLWQ0NmItNGIxNy1hZGU0LTQzMzU0MmJlOTI1MSIsImlhdCI6MTY4Nzc3MzEyMCwiZXhwIjoxNjg3Nzc2NzIwfQ.VKvrSEglaW_Ms7FbBaE8KCzLOU3dwv9CD-XNZQD9S44",
+              withCredentials: true,
+            },
+          }
+        );
+        if (response.status === 200) {
+          localStorage.setItem("token", JSON.stringify(response.data.data));
+        }
+        setCustomers(response.data.data);
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+      }
+    };
+    fetchCustomers();
   }, []);
-
-  console.log(customers);
-  
 
   // const customerRow = useMemo(() => customersRows, [customersRows]);
   const location = useLocation();

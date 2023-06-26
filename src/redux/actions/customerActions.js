@@ -18,7 +18,8 @@ export const listCustomer = () => async (dispatch, getState) => {
         },
       }
     );
-    dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data.data });
+    dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data });
+    localStorage.setItem("customerInfo", JSON.stringify(data.data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_LIST_FAIL,

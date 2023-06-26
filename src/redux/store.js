@@ -20,7 +20,7 @@ import {
   customerUpdateReducer,
 } from "./reducers/customerReducers";
 
-const customerInfo = localStorage.getItem("customerInfo") || null;
+const customerInfo = Cookies.get("customerInfo") || null;
 
 const initialState = {
   customerSignin: { customerInfo },
