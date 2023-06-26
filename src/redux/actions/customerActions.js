@@ -2,27 +2,36 @@ import Axios from "axios";
 import axios from "axios";
 import Cookies from "js-cookie";
 import * as actionTypes from "../constants/customerConstants";
-import { GLOBALS, axiosInstance } from "../../global/Get";
-import { Global } from "../../global/Post";
+import { Global } from "../../global/Global";
 
-
-export const listCustomer = () => async (dispatch) => {
+export const listCustomer = () => async (dispatch, getState) => {
+  const {
+    customerSignin: { customerInfo },
+  } = getState();
   try {
     dispatch({ type: actionTypes.CUSTOMER_LIST_REQUEST });
-    const { data } = await axiosInstance.get(
-      `/api/v1/admin/customers`,
+    const { data } = await Axios.get(
+      `${Global.baseURL}/api/v1/admin/customers`,
+      {
+        headers: {
+          Authorization: "Bearer " + customerInfo.token,
+        },
+      }
     );
-    dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data });
+    dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data.data });
   } catch (error) {
-    dispatch({ type: actionTypes.CUSTOMER_LIST_FAIL, payload: error.message });
+    dispatch({
+      type: actionTypes.CUSTOMER_LIST_FAIL,
+      payload: error.message,
+    });
   }
 };
 
 export const detailsCustomer = (id) => async (dispatch) => {
   dispatch({ type: actionTypes.CUSTOMER_DETAILS_REQUEST });
   try {
-    const { data } = await axiosInstance.post(
-      `/api/v1/admin/customers/${id}`
+    const { data } = await axios.post(
+      `${Global.baseURL}/api/v1/admin/customers/${id}`
     );
     dispatch({ type: actionTypes.CUSTOMER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -45,7 +54,7 @@ export const update =
     });
     try {
       const { data } = await Axios.put(
-        `$/api/v1/admin/customers/${customerId}`,
+        `${Global.baseURL}/api/v1/admin/customers/${customerId}`,
         { name, email, password },
         {
           headers: {
@@ -53,7 +62,10 @@ export const update =
           },
         }
       );
-      dispatch({ type: actionTypes.CUSTOMER_UPDATE_SUCCESS, payload: data });
+      dispatch({
+        type: actionTypes.CUSTOMER_UPDATE_SUCCESS,
+        payload: data.data,
+      });
       Cookies.set("customerInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
@@ -69,15 +81,12 @@ export const signIn = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { data } = await axios.post(
-      `${Global.baseURL}/api/v1/admin/login`,
-      {
-        email,
-        password,
-      }
-    );
+    const { data } = await axios.post(`${Global.baseURL}/api/v1/admin/login`, {
+      email,
+      password,
+    });
     dispatch({ type: actionTypes.CUSTOMER_SIGNIN_SUCCESS, payload: data });
-    Cookies.set("customerInfo", JSON.stringify(data));
+    localStorage.setItem("customerInfo", JSON.stringify(data.data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,
@@ -93,7 +102,7 @@ export const register = (name, email, password) => async (dispatch) => {
   });
   try {
     const { data } = await axios.post(
-      `/api/v1/admin/customers/register`,
+      `${Global.baseURL}/api/v1/admin/customers/register`,
       {
         name,
         email,

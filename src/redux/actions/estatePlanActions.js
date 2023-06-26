@@ -1,7 +1,7 @@
 import * as actionTypes from "../constants/estatePlanConstant";
 import axios from "axios";
 import Axios from "axios";
-import { GLOBALS } from "../../global/Get";
+import { Global } from "../../global/Global";
 
 export const listEstatePlan = () => async (dispatch) => {
   try {

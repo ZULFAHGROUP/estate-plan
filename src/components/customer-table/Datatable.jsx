@@ -13,46 +13,49 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { listCustomer } from "../../redux/actions/customerActions";
-import { axiosInstance } from "../../global/Get";
+import { Global } from "../../global/Global";
 import axios from "axios";
 
 // Action
+import { listCustomer } from "../../redux/actions/customerActions";
 
 const Datatable = (props) => {
   const customerList = useSelector((state) => state.customerList);
-  // const { customers, loading, error } = customerList;
+  const { customers, loading, error } = customerList;
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(listCustomer());
-  // }, []);
+  useEffect(() => {
+    dispatch(listCustomer());
+  }, []);
+
+  console.log(customers);
+  
 
   // const customerRow = useMemo(() => customersRows, [customersRows]);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const [customers, setCustomers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [customers, setCustomers] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(false);
 
-  useEffect(() => {
-    axiosInstance
-      .get("/api/v1/admin/customers")
-      .then((response) => {
-        setCustomers(response.data.data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/v1/admin/customers")
+  //     .then((response) => {
+  //       setCustomers(response.data.data);
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //     });
+  // }, []);
 
   // console.log(customers);
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`/api/v1/admin/customers`);
-      setCustomers(customers.filter((item) => item._id !== id));
+      // setCustomers(customers.filter((item) => item._id !== id));
     } catch (err) {}
   };
 

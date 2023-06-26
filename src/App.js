@@ -5,7 +5,6 @@ import CustomerSingle from "./pages/customer/single/Single";
 import EstateSingle from "./pages/estate/single/Single";
 import NewCustomer from "./pages/customer/new/New";
 import NewPlan from "./pages/estate/new/New";
-import AuthContext from "./contextAPI/AuthProvider";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { estatePlantInputs, customerInputs } from "./formSource";
 import "./style/dark.scss";

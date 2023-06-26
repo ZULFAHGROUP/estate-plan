@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
-import { Global } from "../../../global/Post";
+import { Global } from "../../../global/Global";
 import axios from "axios";
 
 const NewCustomer = ({ inputs, title }) => {

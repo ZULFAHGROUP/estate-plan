@@ -14,7 +14,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { listCustomer } from "../../redux/actions/customerActions";
-import { axiosInstance } from "../../global/Get";
+import { Global } from "../../global/Global";
 import axios from "axios";
 
 
@@ -37,7 +37,7 @@ const Datatable = (props) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axiosInstance
+    axios
       .get("/api/v1/admin/estate-plans")
       .then((response) => {
         setEstatePlan(response.data.data);

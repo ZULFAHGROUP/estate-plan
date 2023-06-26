@@ -2,7 +2,6 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../../contextAPI/AuthProvider";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { GLOBALS } from "../../global/Get";
 import { useSelector, useDispatch } from "react-redux";
 
 import { signIn } from "../../redux/actions/customerActions";
@@ -32,9 +31,6 @@ const Login = () => {
   // const [success, setSuccess] = useState(false);
 
   // useEffect(() => {
-  //   userRef.current.focus();
-  // }, []);
-  // useEffect(() => {
   //   setErrMsg("");
   // }, [email, password]);
 
@@ -42,15 +38,18 @@ const Login = () => {
   //   e.preventDefault();
   //   try {
   //     const response = await axios.post(
-  //       `${GLOBALS.BASE_URL}/api/v1/admin/login`,
+  //       `https://mapp-asset-tracker.azurewebsites.net/api/v1/admin/login`,
   //       JSON.stringify({ email, password }),
   //       {
   //         headers: { "Content-Type": "application/json" },
   //         withCredentials: true,
   //       }
   //     );
-  //     const accessToken = response?.data?.token;
-  //     setAuth({ email, password, accessToken });
+  //     // const accessToken = response?.data?.token;
+  //     if (response.status === 200) {
+  //       localStorage.setItem("token", JSON.stringify(response.data));
+  //     }
+  //     setAuth(response.data);
   //     setEmail("");
   //     setPassword("");
   //     setSuccess(true);
@@ -64,7 +63,6 @@ const Login = () => {
   //     } else {
   //       setErrMsg("Login Failed");
   //     }
-  //     errRef.current.focus();
   //   }
 
   //   if (success) {
