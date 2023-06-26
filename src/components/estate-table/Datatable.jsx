@@ -36,34 +36,33 @@ const Datatable = (props) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const fetchEstatePlan = async () => {
-      try {
-        const response = await axios.get(
-          `${Global.baseURL}/api/v1/admin/estate-plans`,
-          {
-            headers: {
-              Authorization:
-                "Bearer " +
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyLWFkbWluQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsIl9pZCI6ImUzMzRiOWRmLWQ0NmItNGIxNy1hZGU0LTQzMzU0MmJlOTI1MSIsImlhdCI6MTY4Nzc3MzEyMCwiZXhwIjoxNjg3Nzc2NzIwfQ.VKvrSEglaW_Ms7FbBaE8KCzLOU3dwv9CD-XNZQD9S44",
-              withCredentials: true,
-            },
-          }
-        );
-        if (response.status === 200) {
-          localStorage.setItem("token", JSON.stringify(response.data.data));
+    axios
+      .get(`${Global.baseURL}/api/v1/admin/estate-plans`, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        if (response.data.data.token) {
+          setEstatePlan(response.data.data);
+          localStorage.setItem("customers", JSON.stringify(response.data.data));
         }
-        setEstatePlan(response.data.data);
-      } catch (error) {
-        console.error("Error fetching estate plan:", error);
-      }
-    };
-    fetchEstatePlan();
+
+        return response.data.data;
+      });
   }, []);
   console.log(estatePlan);
 
+  function authHeader() {
+    const customers = JSON.parse(localStorage.getItem("customers"));
+
+    if (customers && customers.token) {
+      return { Authorization: "Bearer " + customers.token };
+    } else {
+      return {};
+    }
+  }
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/v1/admin/customers`);
+      await axios.delete(`/api/v1/admin/esatate-plans`);
       setEstatePlan(estatePlan.filter((item) => item._id !== id));
     } catch (err) {}
   };
@@ -102,7 +101,7 @@ const Datatable = (props) => {
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
-        getRowId={(customers) => customers.user_id}
+        getRowId={(estatePlan) => estatePlan.user_id}
       />
     </div>
   );
