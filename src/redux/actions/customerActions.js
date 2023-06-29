@@ -14,12 +14,12 @@ export const listCustomer = () => async (dispatch, getState) => {
       `${Global.baseURL}/api/v1/admin/customers`,
       {
         headers: {
-          Authorization: "Bearer " + customerInfo.token,
+          Authorization: "Bearer " + customerInfo.headers.token,
         },
       }
     );
     dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data });
-    localStorage.setItem("customerInfo", JSON.stringify(data.data));
+    localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_LIST_FAIL,
@@ -87,7 +87,7 @@ export const signIn = (email, password) => async (dispatch) => {
       password,
     });
     dispatch({ type: actionTypes.CUSTOMER_SIGNIN_SUCCESS, payload: data });
-    localStorage.setItem("customerInfo", JSON.stringify(data.data));
+    localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,
