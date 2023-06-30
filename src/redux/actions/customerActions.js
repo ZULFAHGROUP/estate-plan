@@ -10,16 +10,17 @@ export const listCustomer = () => async (dispatch, getState) => {
   } = getState();
   try {
     dispatch({ type: actionTypes.CUSTOMER_LIST_REQUEST });
-    const { data } = await Axios.get(
-      `${Global.baseURL}/api/v1/admin/customers`,
-      {
-        headers: {
-          Authorization: "Bearer " + customerInfo.headers.token,
-        },
-      }
-    );
-    dispatch({ type: actionTypes.CUSTOMER_LIST_SUCCESS, payload: data });
-    localStorage.setItem("customerInfo", JSON.stringify(data));
+    const result = await Axios.get(`${Global.baseURL}/api/v1/admin/customers`, {
+      headers: {
+        Authorization: "Bearer " + customerInfo.token,
+      },
+      withCredentials: true,
+    });
+    dispatch({
+      type: actionTypes.CUSTOMER_LIST_SUCCESS,
+      payload: result.data.data,
+    });
+    localStorage.setItem("customerInfo", JSON.stringify(result.data.data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_LIST_FAIL,
@@ -65,9 +66,9 @@ export const update =
       );
       dispatch({
         type: actionTypes.CUSTOMER_UPDATE_SUCCESS,
-        payload: data.data,
+        payload: data,
       });
-      Cookies.set("customerInfo", JSON.stringify(data));
+      localStorage.setItem("customerInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
         type: actionTypes.CUSTOMER_UPDATE_FAIL,
@@ -82,12 +83,15 @@ export const signIn = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { data } = await axios.post(`${Global.baseURL}/api/v1/admin/login`, {
+    const result = await axios.post(`${Global.baseURL}/api/v1/admin/login`, {
       email,
       password,
     });
-    dispatch({ type: actionTypes.CUSTOMER_SIGNIN_SUCCESS, payload: data });
-    localStorage.setItem("customerInfo", JSON.stringify(data));
+    dispatch({
+      type: actionTypes.CUSTOMER_SIGNIN_SUCCESS,
+      payload: result.data,
+    });
+    localStorage.setItem("customerInfo", JSON.stringify(result.data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,

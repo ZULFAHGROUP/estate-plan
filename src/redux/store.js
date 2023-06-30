@@ -20,9 +20,7 @@ import {
   customerUpdateReducer,
 } from "./reducers/customerReducers";
 
-const customerInfo = localStorage.getItem("customerInfo")
-  ? JSON.parse(localStorage.getItem("customerInfo"))
-  : null;
+const customerInfo = localStorage.getItem("customerInfo") || null;
 
 const initialState = {
   customerSignin: { customerInfo },
