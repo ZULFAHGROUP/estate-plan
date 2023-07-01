@@ -6,10 +6,13 @@ import { Global } from "../../global/Global";
 export const listEstatePlan = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.ESTATEPLAN_LIST_REQUEST });
-    const { data } = await axios.get(
-      `/api/v1/admin/estate-plans`
+    const result = await Axios.get(
+      `${Global.baseURL}/api/v1/admin/estate-plans`
     );
-    dispatch({ type: actionTypes.ESTATEPLAN_LIST_SUCCESS, payload: data });
+    dispatch({
+      type: actionTypes.ESTATEPLAN_LIST_SUCCESS,
+      payload: result.data.data,
+    });
   } catch (error) {
     dispatch({
       type: actionTypes.ESTATEPLAN_LIST_FAIL,

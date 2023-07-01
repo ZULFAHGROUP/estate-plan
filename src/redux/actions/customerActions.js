@@ -12,16 +12,13 @@ export const listCustomer = () => async (dispatch, getState) => {
     dispatch({ type: actionTypes.CUSTOMER_LIST_REQUEST });
     const result = await Axios.get(`${Global.baseURL}/api/v1/admin/customers`, {
       headers: {
-        Authorization: "Bearer " + customerInfo.token,
+        Authorization: "Bearer " + customerInfo,
       },
-      withCredentials: true,
-      mode: "no-cors",
     });
     dispatch({
       type: actionTypes.CUSTOMER_LIST_SUCCESS,
       payload: result.data.data,
     });
-    localStorage.setItem("customerInfo", JSON.stringify(result.data.data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_LIST_FAIL,
@@ -84,15 +81,18 @@ export const signIn = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const result = await axios.post(`${Global.baseURL}/api/v1/admin/login`, {
-      email,
-      password,
-    });
+    const { data, headers } = await axios.post(
+      `${Global.baseURL}/api/v1/admin/login`,
+      {
+        email,
+        password,
+      }
+    );
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_SUCCESS,
-      payload: result.data,
+      payload: headers,
     });
-    localStorage.setItem("customerInfo", JSON.stringify(result.data));
+    localStorage.setItem("customerInfo", JSON.stringify(headers));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,

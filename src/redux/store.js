@@ -20,10 +20,10 @@ import {
   customerUpdateReducer,
 } from "./reducers/customerReducers";
 
-const customerInfo = localStorage.getItem("customerInfo") || null;
+const { token } = JSON.parse(localStorage.getItem("customerInfo")) || null;
 
 const initialState = {
-  customerSignin: { customerInfo },
+  customerSignin: { customerInfo: token },
 };
 
 const reducer = combineReducers({
