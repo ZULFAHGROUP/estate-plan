@@ -15,6 +15,7 @@ export const listCustomer = () => async (dispatch, getState) => {
         Authorization: "Bearer " + customerInfo.token,
       },
       withCredentials: true,
+      mode: "no-cors",
     });
     dispatch({
       type: actionTypes.CUSTOMER_LIST_SUCCESS,
