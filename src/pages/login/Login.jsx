@@ -4,6 +4,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
+// Action
 import { signIn } from "../../redux/actions/customerActions";
 
 const Login = () => {
@@ -21,54 +22,6 @@ const Login = () => {
   };
 
   console.log(customerInfo);
-
-  // const { setAuth } = useContext(AuthContext);
-  // const userRef = useRef();
-  // const errRef = useRef();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [errMsg, setErrMsg] = useState("");
-  // const [success, setSuccess] = useState(false);
-
-  // useEffect(() => {
-  //   setErrMsg("");
-  // }, [email, password]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.post(
-  //       `https://mapp-asset-tracker.azurewebsites.net/api/v1/admin/login`,
-  //       JSON.stringify({ email, password }),
-  //       {
-  //         headers: { "Content-Type": "application/json" },
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     // const accessToken = response?.data?.token;
-  //     if (response.status === 200) {
-  //       localStorage.setItem("token", JSON.stringify(response.data));
-  //     }
-  //     setAuth(response.data);
-  //     setEmail("");
-  //     setPassword("");
-  //     setSuccess(true);
-  //   } catch (err) {
-  //     if (!err?.response) {
-  //       setErrMsg("No Server Response");
-  //     } else if (err.response?.status === 400) {
-  //       setErrMsg("Missing Username or Password");
-  //     } else if (err.response?.status === 401) {
-  //       setErrMsg("Unauthorized");
-  //     } else {
-  //       setErrMsg("Login Failed");
-  //     }
-  //   }
-
-  //   if (success) {
-  //     return <Navigate to="/customers" />;
-  //   }
-  // };
 
   return (
     <>
