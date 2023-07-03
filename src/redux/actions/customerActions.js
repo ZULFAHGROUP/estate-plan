@@ -81,7 +81,7 @@ export const signIn = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { data, headers } = await axios.post(
+    const { headers } = await axios.post(
       `${Global.baseURL}/api/v1/admin/login`,
       {
         email,
@@ -89,12 +89,11 @@ export const signIn = (email, password) => async (dispatch) => {
       }
     );
     localStorage.setItem("customerInfo", JSON.stringify(headers));
-
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_SUCCESS,
       payload: headers,
     });
-   } catch (error) {
+  } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,
       payload: error.message,
@@ -117,7 +116,7 @@ export const register = (name, email, password) => async (dispatch) => {
       }
     );
     dispatch({ type: actionTypes.CUSTOMER_REGISTER_SUCCESS, payload: data });
-    Cookies.set("customerInfo", JSON.stringify(data));
+    localStorage.setItem("customerInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_REGISTER_FAIL,
@@ -127,6 +126,6 @@ export const register = (name, email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  Cookies.remove("customerInfo");
+  localStorage.removeItem("customerInfo");
   dispatch({ type: actionTypes.CUSTOMER_LOGOUT });
 };

@@ -21,9 +21,9 @@ import { listEstatePlan } from "../../redux/actions/estatePlanActions";
 
 const Datatable = (props) => {
   const estatePlanList = useSelector((state) => state.estatePlanList);
-  const { estatePlan, loading, error } = estatePlanList;
+  const { estatePlans, loading, error } = estatePlanList;
 
-  console.log(estatePlan);
+  console.log(estatePlans);
 
   const dispatch = useDispatch();
 
@@ -70,12 +70,12 @@ const Datatable = (props) => {
       </div>
       <DataGrid
         className="datagrid"
-        rows={estatePlan}
+        rows={estatePlans}
         columns={estatePlanColumn.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
-        getRowId={(estatePlan) => estatePlan.user_id}
+        getRowId={(estatePlans) => estatePlans.id}
       />
     </div>
   );

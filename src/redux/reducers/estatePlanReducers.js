@@ -1,11 +1,11 @@
 import * as actionTypes from "../constants/estatePlanConstant";
 
-function estatePlanListReducer(state = { estateplans: [] }, action) {
+function estatePlanListReducer(state = { estatePlans: [] }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_LIST_REQUEST:
-      return { loading: true, estateplans: [] };
+      return { loading: true, estatePlans: [] };
     case actionTypes.ESTATEPLAN_LIST_SUCCESS:
-      return { loading: false, estateplans: action.payload };
+      return { loading: false, estatePlans: action.payload };
     case actionTypes.ESTATEPLAN_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
