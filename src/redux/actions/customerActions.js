@@ -88,12 +88,13 @@ export const signIn = (email, password) => async (dispatch) => {
         password,
       }
     );
+    localStorage.setItem("customerInfo", JSON.stringify(headers));
+
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_SUCCESS,
       payload: headers,
     });
-    localStorage.setItem("customerInfo", JSON.stringify(headers));
-  } catch (error) {
+   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,
       payload: error.message,
