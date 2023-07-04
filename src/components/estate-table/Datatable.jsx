@@ -17,7 +17,11 @@ import { Global } from "../../global/Global";
 import axios from "axios";
 
 // Action
-import { listEstatePlan } from "../../redux/actions/estatePlanActions";
+import {
+  listEstatePlan,
+  detailsEstatePlan,
+  deleteEstatePlan,
+} from "../../redux/actions/estatePlanActions";
 
 const Datatable = (props) => {
   const estatePlanList = useSelector((state) => state.estatePlanList);
@@ -36,7 +40,7 @@ const Datatable = (props) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/v1/admin/esatate-plans`);
+      await axios.delete(`${Global.baseURL}/api/v1/admin/esatate-plans`);
       // setEstatePlan(estatePlan.filter((item) => item._id !== id));
     } catch (err) {}
   };

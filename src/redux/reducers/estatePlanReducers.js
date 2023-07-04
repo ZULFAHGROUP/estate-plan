@@ -1,11 +1,11 @@
 import * as actionTypes from "../constants/estatePlanConstant";
 
-function estatePlanListReducer(state = { estateplans: [] }, action) {
+function estatePlanListReducer(state = { estatePlans: [] }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_LIST_REQUEST:
-      return { loading: true, estateplans: [] };
+      return { loading: true, estatePlans: [] };
     case actionTypes.ESTATEPLAN_LIST_SUCCESS:
-      return { loading: false, estateplans: action.payload };
+      return { loading: false, estatePlans: action.payload };
     case actionTypes.ESTATEPLAN_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -21,7 +21,7 @@ function estatePlanDetailsReducer(
     case actionTypes.ESTATEPLAN_DETAILS_REQUEST:
       return { loading: true };
     case actionTypes.ESTATEPLAN_DETAILS_SUCCESS:
-      return { loading: false, estateplan: action.payload };
+      return { loading: false, estatePlan: action.payload };
     case actionTypes.ESTATEPLAN_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -29,12 +29,12 @@ function estatePlanDetailsReducer(
   }
 }
 
-function estatePlanEditReducer(state = { estateplan: {} }, action) {
+function estatePlanEditReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_EDIT_REQUEST:
       return { loading: true };
     case actionTypes.ESTATEPLAN_EDIT_SUCCESS:
-      return { loading: false, estateplan: action.payload };
+      return { loading: false, estatePlan: action.payload };
     case actionTypes.ESTATEPLAN_EDIT_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -42,12 +42,12 @@ function estatePlanEditReducer(state = { estateplan: {} }, action) {
   }
 }
 
-function estatePlanDeleteReducer(state = { estateplan: {} }, action) {
+function estatePlanDeleteReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_DELETE_REQUEST:
       return { loading: true };
     case actionTypes.ESTATEPLAN_DELETE_SUCCESS:
-      return { loading: false, estateplan: action.payload, success: true };
+      return { loading: false, estatePlan: action.payload, success: true };
     case actionTypes.ESTATEPLAN_DELETE_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -55,12 +55,12 @@ function estatePlanDeleteReducer(state = { estateplan: {} }, action) {
   }
 }
 
-function estatePlanSaveReducer(state = { estateplan: {} }, action) {
+function estatePlanSaveReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_SAVE_REQUEST:
       return { loading: true };
     case actionTypes.ESTATEPLAN_SAVE_SUCCESS:
-      return { loading: false, success: true, estateplan: action.payload };
+      return { loading: false, success: true, estatePlan: action.payload };
     case actionTypes.ESTATEPLAN_SAVE_FAIL:
       return { loading: false, error: action.payload };
     default:

@@ -10,30 +10,32 @@ import { useState } from "react";
 import { customersRows } from "../../../data/customers";
 import { Global } from "../../../global/Global";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
-const postEstatePlan = async (image) => {
-  const formData = new FormData();
+// Action
+import { saveEstatePlan } from "../../../redux/actions/estatePlanActions";
 
-  const result = await axios.post(`/api/v1/admin/estate-plan`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return result.data;
-};
+// const postEstatePlan = async (image) => {
+//   const formData = new FormData();
 
-const NewPlan = ({ inputs, title }) => {
+//   const result = await axios.post(`/api/v1/admin/estate-plan`, formData, {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//     },
+//   });
+//   return result.data;
+// };
+
+const NewPlan = () => {
+  const dispatch = useDispatch();
+
   const [estate_plan, setPlan] = useState("");
-  const [status, setStatus] = useState("");
+  const [customer, setCustomer] = useState("");
   const [details, setDetails] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await postEstatePlan({
-      estate_plan,
-      status,
-      details,
-    });
-    return result;
+    dispatch(saveEstatePlan(estate_plan, customer, details));
   };
 
   return (
@@ -42,7 +44,7 @@ const NewPlan = ({ inputs, title }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          <h1>Create Estate Plan</h1>
         </div>
         <div className="bottom">
           <div className="right">
@@ -58,7 +60,7 @@ const NewPlan = ({ inputs, title }) => {
                 />
               </div>
 
-              <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+              {/* <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
@@ -72,7 +74,18 @@ const NewPlan = ({ inputs, title }) => {
                   <MenuItem value="active">Active</MenuItem>
                   <MenuItem value="inactive">InActive</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
+
+              <div className="formInput">
+                <label>Customer</label>
+                <input
+                  type="text"
+                  placeholder="Customer"
+                  name="customer"
+                  value={customer}
+                  onChange={(e) => setCustomer(e.target.value)}
+                />
+              </div>
 
               <div>
                 <textarea

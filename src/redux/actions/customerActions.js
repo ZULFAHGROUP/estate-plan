@@ -58,7 +58,7 @@ export const update =
         { name, email, password },
         {
           headers: {
-            Authorization: "Bearer " + customerInfo.token,
+            Authorization: "Bearer " + customerInfo,
           },
         }
       );

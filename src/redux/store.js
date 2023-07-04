@@ -20,7 +20,9 @@ import {
   customerUpdateReducer,
 } from "./reducers/customerReducers";
 
-const { token } = JSON.parse(localStorage.getItem("customerInfo")) || null;
+const headerData = JSON.parse(localStorage.getItem("customerInfo"));
+console.log("headerData", headerData);
+const token = headerData == null ? "" : headerData.token;
 
 const initialState = {
   customerSignin: { customerInfo: token },
