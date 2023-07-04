@@ -13,10 +13,7 @@ function estatePlanListReducer(state = { estatePlans: [] }, action) {
   }
 }
 
-function estatePlanDetailsReducer(
-  state = { estateplan: { reviews: [] } },
-  action
-) {
+function estatePlanDetailsReducer(state = { estateplan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_DETAILS_REQUEST:
       return { loading: true };

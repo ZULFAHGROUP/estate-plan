@@ -101,29 +101,32 @@ export const signIn = (email, password) => async (dispatch) => {
   }
 };
 
-export const register = (name, email, password) => async (dispatch) => {
-  dispatch({
-    type: actionTypes.CUSTOMER_REGISTER_REQUEST,
-    payload: { name, email, password },
-  });
-  try {
-    const { data } = await axios.post(
-      `${Global.baseURL}/api/v1/admin/customers/register`,
-      {
-        name,
-        email,
-        password,
-      }
-    );
-    dispatch({ type: actionTypes.CUSTOMER_REGISTER_SUCCESS, payload: data });
-    localStorage.setItem("customerInfo", JSON.stringify(data));
-  } catch (error) {
+export const register =
+  (username, status, email, age, password) => async (dispatch) => {
     dispatch({
-      type: actionTypes.CUSTOMER_REGISTER_FAIL,
-      payload: error.message,
+      type: actionTypes.CUSTOMER_REGISTER_REQUEST,
+      payload: { username, status, email, age, password },
     });
-  }
-};
+    try {
+      const { data } = await axios.post(
+        `${Global.baseURL}/api/v1/admin/customers/register`,
+        {
+          username,
+          status,
+          email,
+          age,
+          password,
+        }
+      );
+      dispatch({ type: actionTypes.CUSTOMER_REGISTER_SUCCESS, payload: data });
+      localStorage.setItem("customerInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: actionTypes.CUSTOMER_REGISTER_FAIL,
+        payload: error.message,
+      });
+    }
+  };
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("customerInfo");

@@ -8,66 +8,36 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import { Global } from "../../../global/Global";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
-const NewCustomer = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
+// Action
+import { register } from "../../../redux/actions/customerActions";
+
+const NewCustomer = () => {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
+  const [password, setPassword] = useState("");
 
-  const submitForm = async () => {
-    const formPayload = {
-      username,
-      img: file,
-      status,
-      email,
-      age,
-    };
-
-    try {
-      const response = await axios.post(
-        `${Global.baseURL}/api/v1/admin/customers/register`,
-        formPayload
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(register(username, status, email, age, password));
   };
+
   return (
     <div className="new">
       <Sidebar />
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          <h1>Create New Customer</h1>
         </div>
         <div className="bottom">
-          <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
-          </div>
           <div className="right">
-            <form onSubmit={submitForm}>
-              <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div>
-
+            <form onSubmit={handleSubmit}>
               <div className="formInput">
                 <label>Name</label>
                 <input
@@ -75,6 +45,7 @@ const NewCustomer = ({ inputs, title }) => {
                   placeholder="Name"
                   name="username"
                   onChange={(e) => setUsername(e.target.value)}
+                  value={username}
                 />
               </div>
               <div className="formInput">
@@ -84,6 +55,7 @@ const NewCustomer = ({ inputs, title }) => {
                   placeholder="Email"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
               </div>
 
@@ -92,6 +64,7 @@ const NewCustomer = ({ inputs, title }) => {
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
                   value={status}
+                  name="status"
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <MenuItem value="active">
@@ -110,6 +83,17 @@ const NewCustomer = ({ inputs, title }) => {
                   placeholder="Age"
                   name="age"
                   onChange={(e) => setAge(e.target.value)}
+                  value={age}
+                />
+              </div>
+              <div className="formInput">
+                <label>Password</label>
+                <input
+                  type="text"
+                  placeholder="Password"
+                  name="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
               </div>
 

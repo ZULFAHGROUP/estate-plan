@@ -15,17 +15,6 @@ import { useSelector, useDispatch } from "react-redux";
 // Action
 import { saveEstatePlan } from "../../../redux/actions/estatePlanActions";
 
-// const postEstatePlan = async (image) => {
-//   const formData = new FormData();
-
-//   const result = await axios.post(`/api/v1/admin/estate-plan`, formData, {
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//     },
-//   });
-//   return result.data;
-// };
-
 const NewPlan = () => {
   const dispatch = useDispatch();
 

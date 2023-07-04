@@ -19,7 +19,6 @@ import axios from "axios";
 // Action
 import {
   listEstatePlan,
-  detailsEstatePlan,
   deleteEstatePlan,
 } from "../../redux/actions/estatePlanActions";
 
@@ -38,25 +37,24 @@ const Datatable = (props) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${Global.baseURL}/api/v1/admin/esatate-plans`);
-      // setEstatePlan(estatePlan.filter((item) => item._id !== id));
-    } catch (err) {}
-  };
-
   const actionColumn = [
     {
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (estatePlans) => {
         return (
           <div className="cellAction">
-            <Link to={`/customers/test`} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/estateplan/${estatePlans.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">View</div>
             </Link>
-            <div className="deleteButton" onClick={handleDelete}>
+            <div
+              className="deleteButton"
+              onClick={dispatch(deleteEstatePlan(estatePlanList.id))}
+            >
               Delete
             </div>
           </div>

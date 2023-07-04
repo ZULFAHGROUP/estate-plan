@@ -24,13 +24,6 @@ const Datatable = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`/api/v1/admin/customers`);
-      // setCustomers(customers.filter((item) => item._id !== id));
-    } catch (err) {}
-  };
-
   const actionColumn = [
     {
       field: "action",
@@ -42,9 +35,6 @@ const Datatable = () => {
             <Link to={`/customers/test`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div className="deleteButton" onClick={handleDelete}>
-              Delete
-            </div>
           </div>
         );
       },

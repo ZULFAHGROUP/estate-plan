@@ -29,32 +29,34 @@ export const listEstatePlan = () => async (dispatch, getState) => {
   }
 };
 
-export const detailsEstatePlan =
-  (estatePlanId) => async (dispatch, getState) => {
-    const {
-      customerSignin: { customerInfo },
-    } = getState();
-    try {
-      dispatch({
-        type: actionTypes.ESTATEPLAN_DETAILS_REQUEST,
-        payload: estatePlanId,
-      });
-      const { data } = await axios.get(
-        `/api/v1/admin/estate-plans/${estatePlanId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + customerInfo,
-          },
-        }
-      );
-      dispatch({ type: actionTypes.ESTATEPLAN_DETAILS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: actionTypes.ESTATEPLAN_DETAILS_FAIL,
-        payload: error.message,
-      });
-    }
-  };
+export const detailsEstatePlan = (id) => async (dispatch, getState) => {
+  const {
+    customerSignin: { customerInfo },
+  } = getState();
+  try {
+    dispatch({
+      type: actionTypes.ESTATEPLAN_DETAILS_REQUEST,
+      payload: id,
+    });
+    const { data } = await axios.get(
+      `${Global.baseURL}/api/v1/admin/estate-plans/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + customerInfo,
+        },
+      }
+    );
+    dispatch({
+      type: actionTypes.ESTATEPLAN_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ESTATEPLAN_DETAILS_FAIL,
+      payload: error.message,
+    });
+  }
+};
 
 export const saveEstatePlan =
   (estate_plan, customer, details) => async (dispatch, getState) => {
@@ -79,7 +81,7 @@ export const saveEstatePlan =
         dispatch({ type: actionTypes.ESTATEPLAN_SAVE_SUCCESS, payload: data });
       } else {
         const { data } = await Axios.put(
-          `/api/v1/admin/estate-plans/create` + estate_plan._id,
+          `${Global.baseURL}/api/v1/admin/estate-plans` + estate_plan._id,
           { estate_plan, customer, details },
           {
             headers: {
@@ -97,33 +99,32 @@ export const saveEstatePlan =
     }
   };
 
-export const deleteEstatePlan =
-  (estatePlanId) => async (dispatch, getState) => {
-    try {
-      const {
-        customerSignin: { customerInfo },
-      } = getState();
-      dispatch({
-        type: actionTypes.ESTATEPLAN_DELETE_REQUEST,
-        payload: estatePlanId,
-      });
-      const { data } = await axios.delete(
-        `/api/v1/admin/estate-plans/save/${estatePlanId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + customerInfo,
-          },
-        }
-      );
-      dispatch({
-        type: actionTypes.ESTATEPLAN_DELETE_SUCCESS,
-        payload: data,
-        success: true,
-      });
-    } catch (error) {
-      dispatch({
-        type: actionTypes.ESTATEPLAN_DELETE_FAIL,
-        payload: error.message,
-      });
-    }
-  };
+export const deleteEstatePlan = (id) => async (dispatch, getState) => {
+  try {
+    const {
+      customerSignin: { customerInfo },
+    } = getState();
+    dispatch({
+      type: actionTypes.ESTATEPLAN_DELETE_REQUEST,
+      payload: id,
+    });
+    const { data } = await axios.delete(
+      `${Global.baseURL}/api/v1/admin/estate-plans/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + customerInfo,
+        },
+      }
+    );
+    dispatch({
+      type: actionTypes.ESTATEPLAN_DELETE_SUCCESS,
+      payload: data,
+      success: true,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ESTATEPLAN_DELETE_FAIL,
+      payload: error.message,
+    });
+  }
+};
