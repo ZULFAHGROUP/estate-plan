@@ -13,10 +13,10 @@ function estatePlanListReducer(state = { estatePlans: [] }, action) {
   }
 }
 
-function estatePlanDetailsReducer(state = { estateplan: {} }, action) {
+function estatePlanDetailsReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_DETAILS_REQUEST:
-      return { loading: true };
+      return { loading: true, estatePlan: {} };
     case actionTypes.ESTATEPLAN_DETAILS_SUCCESS:
       return { loading: false, estatePlan: action.payload };
     case actionTypes.ESTATEPLAN_DETAILS_FAIL:
@@ -29,7 +29,7 @@ function estatePlanDetailsReducer(state = { estateplan: {} }, action) {
 function estatePlanEditReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_EDIT_REQUEST:
-      return { loading: true };
+      return { loading: true, estatePlan: {} };
     case actionTypes.ESTATEPLAN_EDIT_SUCCESS:
       return { loading: false, estatePlan: action.payload };
     case actionTypes.ESTATEPLAN_EDIT_FAIL:
@@ -42,7 +42,7 @@ function estatePlanEditReducer(state = { estatePlan: {} }, action) {
 function estatePlanDeleteReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_DELETE_REQUEST:
-      return { loading: true };
+      return { loading: true, estatePlan: {} };
     case actionTypes.ESTATEPLAN_DELETE_SUCCESS:
       return { loading: false, estatePlan: action.payload, success: true };
     case actionTypes.ESTATEPLAN_DELETE_FAIL:
@@ -55,7 +55,7 @@ function estatePlanDeleteReducer(state = { estatePlan: {} }, action) {
 function estatePlanSaveReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_SAVE_REQUEST:
-      return { loading: true };
+      return { loading: true, estatePlan: {} };
     case actionTypes.ESTATEPLAN_SAVE_SUCCESS:
       return { loading: false, success: true, estatePlan: action.payload };
     case actionTypes.ESTATEPLAN_SAVE_FAIL:

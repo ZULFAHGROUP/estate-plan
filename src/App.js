@@ -29,26 +29,24 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/customers">
-            <Route index element={<Customers />} />
-            <Route path=":customerId" element={<CustomerSingle />} />
-            <Route
-              path="new"
-              element={
-                <NewCustomer inputs={customerInputs} title="Add New Customer" />
-              }
-            />
-          </Route>
-          <Route path="/estateplan">
-            <Route index element={<Estate />} />
-            <Route path=":estateplanId" element={<EstateSingle />} />
-            <Route
-              path="new"
-              element={
-                <NewPlan inputs={estatePlantInputs} title="Add New Plan" />
-              }
-            />
-          </Route>
+          <Route path="/customers" element={<Customers />} />
+
+          <Route path="/customers/:customerId" element={<CustomerSingle />} />
+          <Route
+            path="new"
+            element={
+              <NewCustomer inputs={customerInputs} title="Add New Customer" />
+            }
+          />
+          <Route path="/estateplan" element={<Estate />} />
+          <Route path="/estateplan/:estateplanId" element={<EstateSingle />} />
+
+          <Route
+            path="new"
+            element={
+              <NewPlan inputs={estatePlantInputs} title="Add New Plan" />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

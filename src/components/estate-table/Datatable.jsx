@@ -42,7 +42,7 @@ const Datatable = (props) => {
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (estatePlans) => {
+      renderCell: () => {
         return (
           <div className="cellAction">
             <Link

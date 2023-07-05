@@ -1,5 +1,6 @@
 import { createStore, compose, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 import Cookies from "js-cookie";
 
 /* ESTATE PLAN */
@@ -20,13 +21,18 @@ import {
   customerUpdateReducer,
 } from "./reducers/customerReducers";
 
-const headerData = JSON.parse(localStorage.getItem("customerInfo"));
+const headerData = localStorage.getItem("customerInfo")
+  ? JSON.parse(localStorage.getItem("customerInfo"))
+  : [];
 console.log("headerData", headerData);
+
 const token = headerData == null ? "" : headerData.token;
 
 const initialState = {
   customerSignin: { customerInfo: token },
 };
+
+const middleware = [thunk];
 
 const reducer = combineReducers({
   /* ESTATE PLAN */
@@ -44,11 +50,11 @@ const reducer = combineReducers({
   customerUpdate: customerUpdateReducer,
 });
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,
   initialState,
-  composeEnhancer(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default store;

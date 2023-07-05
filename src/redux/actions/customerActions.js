@@ -27,13 +27,17 @@ export const listCustomer = () => async (dispatch, getState) => {
   }
 };
 
-export const detailsCustomer = (id) => async (dispatch) => {
-  dispatch({ type: actionTypes.CUSTOMER_DETAILS_REQUEST });
+export const detailsCustomer = (id) => async (dispatch, getState) => {
+  const {
+    customerSignin: { customerInfo },
+  } = getState();
   try {
-    const { data } = await axios.post(
-      `${Global.baseURL}/api/v1/admin/customers/${id}`
-    );
-    dispatch({ type: actionTypes.CUSTOMER_DETAILS_SUCCESS, payload: data });
+    dispatch({
+      type: actionTypes.CUSTOMER_DETAILS_REQUEST,
+    });
+    dispatch({
+      type: actionTypes.CUSTOMER_DETAILS_SUCCESS,
+    });
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_DETAILS_FAIL,

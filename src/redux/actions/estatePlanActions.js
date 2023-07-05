@@ -36,7 +36,6 @@ export const detailsEstatePlan = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: actionTypes.ESTATEPLAN_DETAILS_REQUEST,
-      payload: id,
     });
     const { data } = await axios.get(
       `${Global.baseURL}/api/v1/admin/estate-plans/${id}`,

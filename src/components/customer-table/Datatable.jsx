@@ -11,7 +11,7 @@ import axios from "axios";
 // Action
 import { listCustomer } from "../../redux/actions/customerActions";
 
-const Datatable = () => {
+const Datatable = ({ match }) => {
   const customerList = useSelector((state) => state.customerList);
   const { customers, loading, error } = customerList;
 
@@ -21,18 +21,24 @@ const Datatable = () => {
     dispatch(listCustomer());
   }, []);
 
+  console.log(customers);
+
   const location = useLocation();
   const path = location.pathname.split("/")[1];
+  const customerId = location.pathname.split("/")[1];
 
   const actionColumn = [
     {
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (customers) => {
         return (
           <div className="cellAction">
-            <Link to={`/customers/test`} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/customers/${customerId}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">View</div>
             </Link>
           </div>

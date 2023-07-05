@@ -16,7 +16,7 @@ function customerListReducer(state = { customers: [] }, action) {
 function customerDetailsReducer(state = { customer: {} }, action) {
   switch (action.type) {
     case actionTypes.CUSTOMER_DETAILS_REQUEST:
-      return { loading: true };
+      return { loading: true, customer: {} };
     case actionTypes.CUSTOMER_DETAILS_SUCCESS:
       return { loading: false, customer: action.payload };
     case actionTypes.CUSTOMER_DETAILS_FAIL:
@@ -29,7 +29,7 @@ function customerDetailsReducer(state = { customer: {} }, action) {
 function customerSigninReducer(state = {}, action) {
   switch (action.type) {
     case actionTypes.CUSTOMER_SIGNIN_REQUEST:
-      return { loading: true };
+      return { loading: true, customerInfo: {} };
     case actionTypes.CUSTOMER_SIGNIN_SUCCESS:
       return { loading: false, customerInfo: action.payload };
     case actionTypes.CUSTOMER_SIGNIN_FAIL:
@@ -44,7 +44,7 @@ function customerSigninReducer(state = {}, action) {
 function customerUpdateReducer(state = {}, action) {
   switch (action.type) {
     case actionTypes.CUSTOMER_UPDATE_REQUEST:
-      return { loading: true };
+      return { loading: true, customerInfo: {} };
     case actionTypes.CUSTOMER_UPDATE_SUCCESS:
       return { loading: false, customerInfo: action.payload };
     case actionTypes.CUSTOMER_UPDATE_FAIL:
@@ -57,7 +57,7 @@ function customerUpdateReducer(state = {}, action) {
 function customerRegisterReducer(state = {}, action) {
   switch (action.type) {
     case actionTypes.CUSTOMER_REGISTER_REQUEST:
-      return { loading: true };
+      return { loading: true, customerInfo: {} };
     case actionTypes.CUSTOMER_REGISTER_SUCCESS:
       return { loading: false, customerInfo: action.payload };
     case actionTypes.CUSTOMER_REGISTER_FAIL:
