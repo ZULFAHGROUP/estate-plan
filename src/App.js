@@ -33,7 +33,7 @@ function App() {
 
           <Route path="/customers/:customerId" element={<CustomerSingle />} />
           <Route
-            path="new"
+            path="/customers/new"
             element={
               <NewCustomer inputs={customerInputs} title="Add New Customer" />
             }
@@ -42,7 +42,7 @@ function App() {
           <Route path="/estateplan/:estateplanId" element={<EstateSingle />} />
 
           <Route
-            path="new"
+            path="/estateplan/new"
             element={
               <NewPlan inputs={estatePlantInputs} title="Add New Plan" />
             }

@@ -18,9 +18,19 @@ const CustomerSingle = ({ match }) => {
   const { customers, loading, error } = customerList;
 
   useEffect(() => {
-    if (customers && customerId !== customers.id) {
+    // function findArrayElementByTitle() {
+    //   return customers.find((element) => {
+    //     return element.sn === customerId;
+    //   });
+    // }
+    // findArrayElementByTitle();
+    if (customers && customerId === customers.user_id) {
       dispatch(listCustomer(customerId));
     }
+    // const new_ = customers.filter((cus) => {
+    //   return cus.id !== customers.user_id;
+    // });
+    // setSingle(new_);
   }, [dispatch, match, customerId]);
 
   console.log(customers);
@@ -31,7 +41,7 @@ const CustomerSingle = ({ match }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Customer Single page</h1>
+          <h1>Customer Single Page</h1>
         </div>
         <div className="bottom">
           <div className="right">
