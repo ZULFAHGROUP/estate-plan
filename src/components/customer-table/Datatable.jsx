@@ -25,7 +25,6 @@ const Datatable = ({ match }) => {
 
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const customerId = location.pathname.split("/")[1];
 
   const actionColumn = [
     {
@@ -36,7 +35,7 @@ const Datatable = ({ match }) => {
         return (
           <div className="cellAction">
             <Link
-              to={`/customers/${customerId}`}
+              to={`/customers/${customers.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
