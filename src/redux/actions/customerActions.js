@@ -35,8 +35,17 @@ export const detailsCustomer = (id) => async (dispatch, getState) => {
     dispatch({
       type: actionTypes.CUSTOMER_DETAILS_REQUEST,
     });
+    const result = await Axios.get(
+      `${Global.baseURL}/api/v1/admin/customers/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + customerInfo,
+        },
+      }
+    );
     dispatch({
       type: actionTypes.CUSTOMER_DETAILS_SUCCESS,
+      payload: result.data.data,
     });
   } catch (error) {
     dispatch({

@@ -37,8 +37,8 @@ export const detailsEstatePlan = (id) => async (dispatch, getState) => {
     dispatch({
       type: actionTypes.ESTATEPLAN_DETAILS_REQUEST,
     });
-    const result = await axios.get(
-      `${Global.baseURL}/api/v1/admin/estate-plans`,
+    const { data } = await axios.get(
+      `${Global.baseURL}/api/v1/admin/estate-plans/${id}`,
       {
         headers: {
           Authorization: "Bearer " + customerInfo,
@@ -47,11 +47,39 @@ export const detailsEstatePlan = (id) => async (dispatch, getState) => {
     );
     dispatch({
       type: actionTypes.ESTATEPLAN_DETAILS_SUCCESS,
-      payload: result.data.data,
+      payload: data,
     });
   } catch (error) {
     dispatch({
       type: actionTypes.ESTATEPLAN_DETAILS_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+export const editEstatePlan = (id) => async (dispatch, getState) => {
+  const {
+    customerSignin: { customerInfo },
+  } = getState();
+  try {
+    dispatch({
+      type: actionTypes.ESTATEPLAN_EDIT_REQUEST,
+    });
+    const { data } = await axios.get(
+      `${Global.baseURL}/api/v1/admin/estate-plans`,
+      {
+        headers: {
+          Authorization: "Bearer " + customerInfo,
+        },
+      }
+    );
+    dispatch({
+      type: actionTypes.ESTATEPLAN_EDIT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ESTATEPLAN_EDIT_FAIL,
       payload: error.message,
     });
   }
@@ -107,8 +135,8 @@ export const deleteEstatePlan = (id) => async (dispatch, getState) => {
       type: actionTypes.ESTATEPLAN_DELETE_REQUEST,
       payload: id,
     });
-    const { data } = await axios.delete(
-      `${Global.baseURL}/api/v1/admin/estate-plans/${id}`,
+    const result = await axios.delete(
+      `${Global.baseURL}/api/v1/admin/estate-plans`,
       {
         headers: {
           Authorization: "Bearer " + customerInfo,
@@ -117,7 +145,7 @@ export const deleteEstatePlan = (id) => async (dispatch, getState) => {
     );
     dispatch({
       type: actionTypes.ESTATEPLAN_DELETE_SUCCESS,
-      payload: data,
+      payload: result.data.data,
       success: true,
     });
   } catch (error) {
