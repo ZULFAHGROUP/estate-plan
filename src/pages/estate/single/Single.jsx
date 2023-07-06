@@ -18,21 +18,19 @@ const EstateSingle = ({ match }) => {
   const { estatePlans, loading, error } = estatePlanList;
 
   useEffect(() => {
-    // function findArrayElementByTitle() {
-    //   return customers.find((element) => {
-    //     return element.sn === customerId;
-    //   });
+    const found = new Set(estatePlans.filter((item) => item.id == customerId));
+    // dispatch(listEstatePlan(customerId));
+    // if (estatePlans && customerId === estatePlans.id) {
     // }
-    // findArrayElementByTitle();
-    if (estatePlans && customerId === estatePlans.user_id) {
-      dispatch(listEstatePlan(customerId));
-    }
+    dispatch(listEstatePlan(customerId));
     // const new_ = estatePlans.filter((cus) => {
     //   return cus.id !== estatePlans.user_id;
     // });
-    // setSingle(new_);
+    setSingle(found);
+    console.log(single);
   }, [dispatch, match, customerId]);
 
+  console.log(customerId);
   console.log(estatePlans);
 
   return (
@@ -51,10 +49,10 @@ const EstateSingle = ({ match }) => {
               <h2>{error}</h2>
             ) : (
               <div className="bottom">
-                {/* <h1 className="title">{estatePlans.username}</h1>
-                <h4 className="title">{estatePlans.user_id}</h4>
-                <h4 className="title">{estatePlans.status}</h4>
-                <h4 className="title">{estatePlans.details}</h4> */}
+                {/* <h1 className="title">{console.log(single.estate_plan)}</h1> */}
+                <h4 className="title">{single.user_id}</h4>
+                <h4 className="title">{single.status}</h4>
+                <h4 className="title">{single.details}</h4>
               </div>
             )}
           </div>

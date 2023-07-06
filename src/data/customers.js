@@ -4,17 +4,17 @@ export const customersColumns = [
   {
     field: "surname",
     headerName: "Surname",
-    width: 230,
+    width: 200,
   },
   {
     field: "othernames",
     headerName: "Other Names",
-    width: 230,
+    width: 200,
   },
   {
     field: "phone_number",
     headerName: "Phone Number",
-    width: 230,
+    width: 200,
   },
   {
     field: "email",
