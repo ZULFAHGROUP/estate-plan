@@ -57,8 +57,8 @@ const Datatable = ({ match }) => {
         className="datagrid"
         rows={customers}
         columns={customersColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
+        pageSize={12}
+        rowsPerPageOptions={[12]}
         checkboxSelection
         getRowId={(customers) => customers.user_id}
       />

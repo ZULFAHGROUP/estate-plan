@@ -74,8 +74,8 @@ const Datatable = (props) => {
         className="datagrid"
         rows={estatePlans}
         columns={estatePlanColumn.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
+        pageSize={12}
+        rowsPerPageOptions={[12]}
         checkboxSelection
         getRowId={(estatePlans) => estatePlans.id}
       />

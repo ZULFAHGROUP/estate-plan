@@ -3,13 +3,18 @@ import Sidebar from "../../../components/sidebar/Sidebar";
 import Navbar from "../../../components/navbar/Navbar";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
-import { listEstatePlan } from "../../../redux/actions/estatePlanActions";
+import {
+  listEstatePlan,
+  detailsEstatePlan,
+} from "../../../redux/actions/estatePlanActions";
+import { Global } from "../../../global/Global";
 
 const EstateSingle = ({ match }) => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const [single, setSingle] = useState([]);
 
@@ -17,18 +22,21 @@ const EstateSingle = ({ match }) => {
   const estatePlanList = useSelector((state) => state.estatePlanList);
   const { estatePlans, loading, error } = estatePlanList;
 
+  const { estate_plan, user_id, status, details } = estatePlans;
+
   useEffect(() => {
-    const found = new Set(estatePlans.filter((item) => item.id == customerId));
+    detailsEstatePlan(customerId);
+    // const found = new Set(estatePlans.filter((item) => item.id == customerId));
     // dispatch(listEstatePlan(customerId));
-    // if (estatePlans && customerId === estatePlans.id) {
+    // if (estatePlan && customerId === estatePlan.id) {
+    //   dispatch(listEstatePlan(customerId));
     // }
-    dispatch(listEstatePlan(customerId));
     // const new_ = estatePlans.filter((cus) => {
     //   return cus.id !== estatePlans.user_id;
     // });
-    setSingle(found);
-    console.log(single);
-  }, [dispatch, match, customerId]);
+    // setSingle(found);
+    // console.log(single);
+  }, []);
 
   console.log(customerId);
   console.log(estatePlans);
@@ -49,10 +57,10 @@ const EstateSingle = ({ match }) => {
               <h2>{error}</h2>
             ) : (
               <div className="bottom">
-                {/* <h1 className="title">{console.log(single.estate_plan)}</h1> */}
-                <h4 className="title">{single.user_id}</h4>
-                <h4 className="title">{single.status}</h4>
-                <h4 className="title">{single.details}</h4>
+                <h1 className="title">{console.log(estate_plan)}</h1>
+                <h4 className="title">{user_id}</h4>
+                <h4 className="title">{status}</h4>
+                <h4 className="title">{details}</h4>
               </div>
             )}
           </div>

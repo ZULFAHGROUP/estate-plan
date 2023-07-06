@@ -37,8 +37,8 @@ export const detailsEstatePlan = (id) => async (dispatch, getState) => {
     dispatch({
       type: actionTypes.ESTATEPLAN_DETAILS_REQUEST,
     });
-    const { data } = await axios.get(
-      `${Global.baseURL}/api/v1/admin/estate-plans/${id}`,
+    const result = await axios.get(
+      `${Global.baseURL}/api/v1/admin/estate-plans`,
       {
         headers: {
           Authorization: "Bearer " + customerInfo,
@@ -47,7 +47,7 @@ export const detailsEstatePlan = (id) => async (dispatch, getState) => {
     );
     dispatch({
       type: actionTypes.ESTATEPLAN_DETAILS_SUCCESS,
-      payload: data,
+      payload: result.data.data,
     });
   } catch (error) {
     dispatch({
