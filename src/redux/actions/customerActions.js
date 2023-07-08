@@ -85,18 +85,19 @@ export const signIn = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { headers } = await axios.post(
+    const results = await axios.post(
       `${Global.baseURL}/api/v1/admin/login`,
       {
         email,
         password,
       }
     );
-    localStorage.setItem("customerInfo", JSON.stringify(headers));
-    dispatch({
-      type: actionTypes.CUSTOMER_SIGNIN_SUCCESS,
-      payload: headers,
-    });
+    console.log("results", results)
+    localStorage.setItem("customerInfo", JSON.stringify(results.headers));
+    // dispatch({
+    //   type: actionTypes.CUSTOMER_SIGNIN_SUCCESS,
+    //   payload: results.headers,
+    // });
   } catch (error) {
     dispatch({
       type: actionTypes.CUSTOMER_SIGNIN_FAIL,
