@@ -42,7 +42,7 @@ function estatePlanEditReducer(state = { estatePlan: {} }, action) {
 function estatePlanDeleteReducer(state = { estatePlan: {} }, action) {
   switch (action.type) {
     case actionTypes.ESTATEPLAN_DELETE_REQUEST:
-      return { loading: true, estatePlan: {} };
+      return { loading: true };
     case actionTypes.ESTATEPLAN_DELETE_SUCCESS:
       return { loading: false, estatePlan: action.payload, success: true };
     case actionTypes.ESTATEPLAN_DELETE_FAIL:

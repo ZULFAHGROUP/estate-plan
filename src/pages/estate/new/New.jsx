@@ -11,9 +11,25 @@ import { customersRows } from "../../../data/customers";
 import { Global } from "../../../global/Global";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 // Action
 import { saveEstatePlan } from "../../../redux/actions/estatePlanActions";
+
+const handleToast = () => {
+  toast.success(" \u{1F44C} Estate Plan Success!", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+};
 
 const NewPlan = () => {
   const dispatch = useDispatch();
@@ -25,8 +41,10 @@ const NewPlan = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(saveEstatePlan(estate_plan, customer, details));
+    setPlan("");
+    setCustomer("");
+    setDetails("");
   };
-
   return (
     <div className="new">
       <Sidebar />
@@ -82,13 +100,15 @@ const NewPlan = () => {
                   className="formInput"
                   name="details"
                   value={details}
-                  id="details"
                   onChange={(e) => setDetails(e.target.value)}
                   style={{ width: "100%" }}
                 ></textarea>
               </div>
 
-              <button type="submit">Send</button>
+              <button type="submit" onClick={handleToast}>
+                Send
+              </button>
+              <ToastContainer />
             </form>
           </div>
         </div>

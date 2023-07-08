@@ -9,12 +9,13 @@ import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // Action
 import { logout } from "../../redux/actions/customerActions";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const customerSignin = useSelector((state) => state.customerSignin);
   const { customerInfo } = customerSignin;
 
@@ -59,7 +60,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        {!customerInfo && <Navigate to="/" />}
+        {!customerInfo && navigate("/")}
       </div>
     </div>
   );

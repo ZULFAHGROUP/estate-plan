@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
-import { listCustomer } from "../../../redux/actions/customerActions";
+import { detailsCustomer } from "../../../redux/actions/customerActions";
 
 const CustomerSingle = ({ match }) => {
   const location = useLocation();
@@ -14,26 +14,26 @@ const CustomerSingle = ({ match }) => {
   const [single, setSingle] = useState([]);
 
   const customerId = location.pathname.split("/")[2];
-  const customerList = useSelector((state) => state.customerList);
-  const { customers, loading, error } = customerList;
+  const customerDetails = useSelector((state) => state.customerDetails);
+  const { customerInfo, loading, error } = customerDetails;
 
   useEffect(() => {
     // function findArrayElementByTitle() {
-    //   return customers.find((element) => {
+    //   return customerInfo.find((element) => {
     //     return element.sn === customerId;
     //   });
     // }
     // findArrayElementByTitle();
-    if (customers && customerId === customers.user_id) {
-      dispatch(listCustomer(customerId));
+    if (customerInfo && customerId === customerInfo.id) {
+      dispatch(detailsCustomer(customerId));
     }
-    // const new_ = customers.filter((cus) => {
-    //   return cus.id !== customers.user_id;
+    // const new_ = customerInfo.filter((cus) => {
+    //   return cus.id !== customerInfo.user_id;
     // });
     // setSingle(new_);
   }, [dispatch, match, customerId]);
 
-  console.log(customers);
+  console.log(customerInfo);
 
   return (
     <div className="new">
@@ -51,10 +51,10 @@ const CustomerSingle = ({ match }) => {
               <h2>{error}</h2>
             ) : (
               <div className="bottom">
-                <h1 className="title">{customers.username}</h1>
-                <h4 className="title">{customers.user_id}</h4>
-                <h4 className="title">{customers.status}</h4>
-                <h4 className="title">{customers.details}</h4>
+                <h1 className="title">{customerDetails.username}</h1>
+                <h4 className="title">{customerDetails.user_id}</h4>
+                <h4 className="title">{customerDetails.status}</h4>
+                <h4 className="title">{customerDetails.details}</h4>
               </div>
             )}
           </div>

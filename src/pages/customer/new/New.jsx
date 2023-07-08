@@ -79,7 +79,7 @@ const NewCustomer = () => {
               <div className="formInput">
                 <label>Age</label>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Age"
                   name="age"
                   onChange={(e) => setAge(e.target.value)}
