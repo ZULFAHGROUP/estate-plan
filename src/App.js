@@ -1,55 +1,43 @@
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import Customers from "./pages/customer/Customers";
-import CustomerSingle from "./pages/customer/single/Single";
-import EstateSingle from "./pages/estate/single/Single";
-import NewCustomer from "./pages/customer/new/New";
-import NewPlan from "./pages/estate/new/New";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { estatePlantInputs, customerInputs } from "./formSource";
-import "./style/dark.scss";
-import { useContext } from "react";
-import { DarkModeContext } from "./context/darkModeContext";
-import Estate from "./pages/estate/Estate";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Switch, BrowserRouter } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import store from './store';
+import { listen } from './utils/listener';
+
+import MainLayout from './components/mainLayout/index';
+import GuardRoute from './components/GuardRoute';
+import GuestOnlyRoute from './components/GuestRouteOnly';
+import MainMenu from './configs/mainMenu';
+
+import Login from './pages/Admin/Login';
+import PageNotFound from './pages/Admin/404';
 
 function App() {
-  const { darkMode } = useContext(DarkModeContext);
-  // const ProtectedRoute = ({ children }) => {
-  //   const { user } = useContext(AuthContext);
-
-  //   if (!user) {
-  //     return <Navigate to="/login" />;
-  //   }
-
-  //   return children;
-  // };
+  React.useEffect(() => {
+    listen();
+  }, []);
 
   return (
-    <div className={darkMode ? "app dark" : "app"}>
+    <Provider store={store}>
+    
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/customers" element={<Customers />} />
-
-          <Route path="/customers/:customerId" element={<CustomerSingle />} />
-          <Route
-            path="/customers/new"
-            element={
-              <NewCustomer inputs={customerInputs} title="Add New Customer" />
-            }
-          />
-          <Route path="/estateplan" element={<Estate />} />
-          <Route path="/estateplan/:estateplanId" element={<EstateSingle />} />
-
-          <Route
-            path="/estateplan/new"
-            element={
-              <NewPlan inputs={estatePlantInputs} title="Add New Plan" />
-            }
-          />
-        </Routes>
+        <Switch>
+          <GuestOnlyRoute path={'/login'} component={Login} exact={true} />
+          <MainLayout>
+            <Switch>
+              {MainMenu.map((route, index) => (
+                <GuardRoute {...route} key={index} />
+              ))}
+              <GuardRoute component={PageNotFound} />
+            </Switch>
+          </MainLayout>
+        </Switch>
       </BrowserRouter>
-    </div>
+      <ToastContainer />
+    </Provider>
   );
 }
 

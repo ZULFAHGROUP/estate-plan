@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/929.b639cefc.chunk.css","mappings":"AAAA,eACI,8BACF,CACA,aAEE,gBAAiB,CACjB,UACF","sources":["components/fragments/Admin/Home/style.css"],"sourcesContent":[".customOverlay {\n    background: rgba(36, 123, 160, 0.7);\n  }\n  .customModal {\n    /* background: #b2dbbf; */\n    max-width: 1000px;\n    width: 100%;\n  }"],"names":[],"sourceRoot":""}

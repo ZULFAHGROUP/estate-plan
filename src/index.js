@@ -1,21 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { AuthProvider } from "./contextAPI/AuthProvider";
-import { DarkModeContextProvider } from "./context/darkModeContext";
-import { Provider } from "react-redux";
-import store from "./redux/store";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styles/index.css';
+import 'react-responsive-modal/styles.css';
+import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AuthProvider>
-      <DarkModeContextProvider>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </DarkModeContextProvider>
-    </AuthProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
