@@ -32,13 +32,15 @@ export default function Home({ customers, assets }) {
   }, [assets])
 
   const clickSearchIcon = (item) => { 
+
+  
     setOpen({
       openDialog: true,
       itemUser: item.user_id,
       itemSurname: item.surname,
       itemOthernames: item.othernames,
       itemEmail: item.email,
-      itemPhone: item.phone,
+      itemPhone: item.phone_number,
       itemGender : item.gender,
       itemAddress: item.address,
       itemDob: item.dob,
@@ -79,14 +81,15 @@ export default function Home({ customers, assets }) {
                   {
                     
                     customers.map((item, i) =>
-                      {
-                        return(<tr key={i}>
+                    {
+                    
+                        return(<tr key={i+1}>
                           <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{i+1}.</td>
                           <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.title}</td>
                           <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.surname}</td>
                             <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.othernames}</td>
                             <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.email}</td>
-                            <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.phone}</td>
+                            <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.phone_number}</td>
                             <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{item.gender}</td>
                             <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">
                             <FaSearch className="text-emerald-600" onClick={()=> clickSearchIcon(item)} />
@@ -151,27 +154,27 @@ export default function Home({ customers, assets }) {
                 </tr>
                 <tr>
                   <th className="px-4 py-2 text-emerald-600">Gender</th>
-                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemPhone ?? '-'}</td>
+                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemGender ?? '-'}</td>
                 </tr>
                 <tr>
                   <th className="px-4 py-2 text-emerald-600">Address</th>
-                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemPhone ?? '-'}</td>
+                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemAddress ?? '-'}</td>
                 </tr>
                 <tr>
                   <th className="px-4 py-2 text-emerald-600">DOB</th>
-                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemPhone ?? '-'}</td>
+                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemDob ?? '-'}</td>
                 </tr>
                 <tr>
                   <th className="px-4 py-2 text-emerald-600">NIN</th>
-                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemPhone ?? '-'}</td>
+                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemNin ?? '-'}</td>
                 </tr>
                 <tr>
                   <th className="px-4 py-2 text-emerald-600">BVN</th>
-                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemPhone ?? '-'}</td>
+                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemBvn ?? '-'}</td>
                 </tr>
                 <tr>
                   <th className="px-4 py-2 text-emerald-600">Marital Status</th>
-                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemPhone ?? '-'}</td>
+                  <td className="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">{open.itemMaritalStatus ?? '-'}</td>
                 </tr>
         
               </table>
