@@ -6,6 +6,14 @@ import { Redirect } from 'react-router-dom';
 export default function Content() {
   const [customers, setCustomers] = useState([]);
   const [assets, setAssets] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+
+
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
     document.title = 'Home';

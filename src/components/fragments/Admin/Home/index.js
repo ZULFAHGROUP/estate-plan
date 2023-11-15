@@ -221,7 +221,10 @@ export default function Home({ customers, assets }) {
               }
                   
             </div>
-            
+            <div style={{padding:'20px'}}></div>
+            <div>
+              Beneficiray
+            </div>
             
        
           </div>
