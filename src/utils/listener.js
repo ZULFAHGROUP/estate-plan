@@ -8,8 +8,8 @@ function listener() {
 
   currentAuth = store.getState().auth;
 
-  if (currentAuth !== previousAuth) {
-    setToken(currentAuth?.token);
+  if (currentAuth !== previousAuth ) {
+   setToken(currentAuth?.token);
   }
 }
 

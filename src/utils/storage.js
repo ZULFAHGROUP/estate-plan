@@ -2,6 +2,10 @@ const TOKEN_STORAGE = 'token';
 
 export function setToken(value) {
   return Promise.resolve().then(function () {
+    if(value === null) {
+      localStorage.removeItem(TOKEN_STORAGE);
+      return 
+    }
     localStorage.setItem(TOKEN_STORAGE, JSON.stringify(value));
   });
 }

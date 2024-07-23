@@ -36,6 +36,7 @@ function App() {
           </MainLayout>
         </Switch>
       </BrowserRouter>
+      <ToastContainer/>
   
     </Provider>
   );

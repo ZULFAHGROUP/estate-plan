@@ -1,7 +1,7 @@
 // (1) import constant
 
 import { jwtDecode } from 'jwt-decode';
-import "core-js/stable/atob";
+import { toast } from 'react-toastify';
 import { USER_LOGIN } from '../../../../store/actionTypes';
 import { login } from '../../../../api/auth';
 
@@ -26,8 +26,8 @@ export const submitLogin = (params) => {
       dispatch(userLogin(user, token));
       // return response;
     } catch (error) {
-    //  toast(error.message || 'Invalid login credentials');
-      console.log("here: ",error.message);
+     toast.error(error.message || 'Invalid login credentials');
+      // return error
     }
   };
 };

@@ -16,7 +16,7 @@ export default function Component(props) {
     };
     const response = await actions.submitLogin(params);
     console.log(response);
-    if (response?.code === 200) {
+    if ( response?.code === 200) {
       history.push('/');
     }
   };
