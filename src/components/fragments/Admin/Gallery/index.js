@@ -13,6 +13,12 @@ export default function Gallery({ estatePlans, customers }) {
 
   const createEstatePlan = async(e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    if(!token) {
+      toast("Please login to continue");
+      return;
+    
+    }
     setIsSubmitting(true);
     const data = {
       estate_plan,
@@ -22,7 +28,7 @@ export default function Gallery({ estatePlans, customers }) {
     const response = await axios.post('https://mapp-asset-tracker.azurewebsites.net/api/v1/admin/estate-plans', data, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+        Authorization: 'Bearer ' + JSON.parse(token)
       }
     })
 

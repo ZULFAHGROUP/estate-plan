@@ -6,21 +6,19 @@ import { Redirect } from 'react-router-dom';
 export default function Content() {
   const [customers, setCustomers] = useState([]);
   const [assets, setAssets] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(3);
-
-
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
+  
 
   useEffect(() => {
     document.title = 'Home';
+    const token = localStorage.getItem('token');
+    if(!token) {
+      <Redirect to="/login" />
+    }
+
     axios.get('https://mapp-asset-tracker.azurewebsites.net/api/v1/admin/customers', {
       headers: {
         'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+         Authorization: 'Bearer ' + JSON.parse(token)
       }
     })
     .then((response) => {

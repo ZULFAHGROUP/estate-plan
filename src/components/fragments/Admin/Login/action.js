@@ -1,5 +1,7 @@
 // (1) import constant
-import jwt from 'jwt-decode';
+
+import { jwtDecode } from 'jwt-decode';
+import "core-js/stable/atob";
 import { USER_LOGIN } from '../../../../store/actionTypes';
 import { login } from '../../../../api/auth';
 
@@ -12,18 +14,20 @@ export function userLogin(user, token) {
 }
 
 export const submitLogin = (params) => {
+
   return async (dispatch) => {
     try {
       const {
         headers: { token },
       } = await login(params);
-
-      const user = jwt(token);
+   
+      const user = token ? jwtDecode(token, { header: true }): null;
 
       dispatch(userLogin(user, token));
       // return response;
     } catch (error) {
-      console.log("here: ",error);
+    //  toast(error.message || 'Invalid login credentials');
+      console.log("here: ",error.message);
     }
   };
 };
