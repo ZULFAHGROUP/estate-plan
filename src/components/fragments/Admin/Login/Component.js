@@ -2,22 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 
+
 export default function Component(props) {
   const { actions } = props;
-
+  const [isLoading, setIsLoading] = React.useState(false);
   const history = useHistory();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const params = {
       email: e.target.elements.username?.value,
       password: e.target.elements.password?.value
     };
     const response = await actions.submitLogin(params);
-    console.log(response);
+
     if ( response?.code === 200) {
+      setIsLoading(false);
       history.push('/');
+    }else {
+      setIsLoading(false);
     }
   };
 
@@ -52,7 +57,7 @@ export default function Component(props) {
             <button
               style={{backgroundColor:'#008145'}}
               className={`py-2 px-4 text-sm text-white rounded border w-full`}>
-              Login
+              { isLoading ? 'Loading...' : 'Login' }
             </button>
           </div>
         </form>

@@ -24,9 +24,17 @@ export const submitLogin = (params) => {
       const user = token ? jwtDecode(token, { header: true }): null;
 
       dispatch(userLogin(user, token));
+
+      toast.success('Login successful');
+      //redirect to dashboard
+      window.location.href = '/'
+
+ 
+
       // return response;
     } catch (error) {
-     toast.error(error.message || 'Invalid login credentials');
+ 
+        toast.error(error.message || 'Invalid login credentials');
       // return error
     }
   };

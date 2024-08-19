@@ -9,8 +9,12 @@ const Suspensed = (Element) =>
     );
   };
 
-export default {
+const pages = {
   Home: Suspensed(React.lazy(() => import('./Admin/Home'))),
   Gallery: Suspensed(React.lazy(() => import('./Admin/Gallery'))),
+  Reports: Suspensed(React.lazy(() => import('./Admin/Reports'))),
+  Nin: Suspensed(React.lazy(() => import('./Admin/Nin'))),
   Logout: Suspensed(React.lazy(() => import('./Admin/Logout')))
 };
+
+export default pages;

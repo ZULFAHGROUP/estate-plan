@@ -14,6 +14,18 @@ const MainMenu = [
     exact: true
   },
   {
+    label: 'Customers Nin',
+    component: pages.Nin,
+    path: '/nin',
+    exact: true
+  },
+  {
+    label: 'Asset Reports',
+    component: pages.Reports,
+    path: '/reports',
+    exact: true
+  },
+  {
     label: 'Logout',
     component: pages.Logout,
     path: '/logout'
